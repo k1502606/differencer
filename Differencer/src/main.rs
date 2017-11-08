@@ -105,9 +105,7 @@ fn multiLineString_ToVector(input : &str) -> Vec<Vec<String>> {
     
     let mut stringTest = input;
     let mut split = stringTest.split("\n");
-    // let mut split = stringTest.split(" ");
     let mut vector1:Vec<&str> = vec![]; 
-    // let mut vectorTaker:Vec<&Vec<&str>> = vec![];
     let mut vectorTaker:Vec<Vec<String>> = vec![];
     for s in split {
         let mut splitA = s.split(" ");
@@ -174,20 +172,15 @@ fn printAllVectorOfVector(input:Vec<Vec<String>>){
 
 fn main() {
 
-
- 	let  mut test1 = lines_from_file("C:/Users/Abhishek Shankar/Desktop/Rust/Differencer/src/test1.txt");
- 	let mut test2 = lines_from_file("C:/Users/Abhishek Shankar/Desktop/Rust/Differencer/src/test2.txt");
-
+    
+    let  mut test1 = lines_from_file("C:/Users/Abhishek Shankar/Desktop/Uni/Project/Rust Project/Rust Code/Differencer/src/test1.txt");
+    let mut test2 = lines_from_file("C:/Users/Abhishek Shankar/Desktop/Uni/Project/Rust Project/Rust Code/Differencer/src/test2.txt");
 
     let s: String = test1.to_vec().into_iter().collect();
     let s2: String = test2.to_vec().into_iter().collect();
-
     let mut result = diff(&mut test1, &mut test2, 0, 0);
 
-    print_edit_sequence(result,test1.to_vec(),test2.to_vec()); 
-
-
-
+    appyScriptApplication(result,test1.to_vec(),test2.to_vec()); 
 
 }
 
@@ -214,23 +207,19 @@ fn getValue_FromArray(arry:&mut Vec<String>,mut index: i32)-> String  {
 
 fn diff(string1: &mut Vec<String>, string2: &mut Vec<String>, mut i: u32, mut j: u32) -> Vec<ReturnValue> {
 
-    println!("Vector 1 => {:?} | Vector 2 => {:?}  ",string1,string2);
     if i == 0 && j == 0 {
         i = 0;
         j = 0;
     }
-    println!("The value of i => {} | j => {}",i,j);
     
     let mut n: i32 = string1.len() as i32;
     let mut m: i32 = string2.len() as i32;
     let mut l: i32 = (string1.len() + string2.len()) as i32;
     let mut z: i32 = (2 * cmp::min(string1.len(), string2.len()) + 2) as i32;
 
-    println!("Value of n => {}, m => {}, l => {}, z => {}", n, m,l,z);
 
     if n > 0 && m > 0 {
         let mut w = n - m;
-        // use std::vec;
         let mut g = vec![0; z as usize];
         let mut p = vec![0; z as usize];
         
@@ -242,21 +231,14 @@ fn diff(string1: &mut Vec<String>, string2: &mut Vec<String>, mut i: u32, mut j:
         }
         value += 1;
         
-        println!("w => {} | g => {:?} | p => {:?}",w,g,p);    
-        
-        println!("The limit for h for loop => {}", value);
         for h in 0..value {
-                 println!("h => {}",h);
             for r in 0..2 {
-                println!("r => {}",r);
                 
                 let mut giveCValueToG = false;      
                 let mut c = p.clone();
                 let mut d = g.clone();
                 let mut o = 0;
                 let mut m2: i32 = -1;
-                // println!("d => {:?}",d);
-                
                 if r == 0 {
                     giveCValueToG = true;
                     c = g.clone();
@@ -264,19 +246,16 @@ fn diff(string1: &mut Vec<String>, string2: &mut Vec<String>, mut i: u32, mut j:
                     o = 1;
                     m2 = 1 as i32;
                 }
-                println!("c => {:?} | d => {:?} | o => {} | m2 => {}",c,d,o,m2);
                 
                 
               
                
                 let mut from_1: i32 = ((-(h - 2 * cmp::max(0, (h - m)))) as i32);
-                
                 let mut to_1: i32 = ((h - 2 * cmp::max(0, h - n) + 1) as i32); //, 2);
                 let mut step: i32 = 2;
                 let mut k: i32 = from_1;
                 while k <= to_1 {
                 
-                println!("k => {} ",k);
                     let index1 = (k - 1).modulo(z as i32);
                     let check1_1 = -(h) as i32;
                     let check1 = k == check1_1 as i32;
@@ -291,13 +270,10 @@ fn diff(string1: &mut Vec<String>, string2: &mut Vec<String>, mut i: u32, mut j:
                         
                     }
                     
-                    println!("a => {}",a);
 
                     let mut b = a - (k as i32);
-                    println!("b => {}",b);
                     let mut s = a;
                     let mut t = b;
-                    println!("s => {} | t => {}",s,t);
                     let mut indexString1: i32 = ((1 - o) * n + m2 * a + (o - 1)) as i32;
                     let mut indexString2: i32 = ((1 - o) * m + m2 * b + (o - 1)) as i32;
                     
@@ -305,7 +281,6 @@ fn diff(string1: &mut Vec<String>, string2: &mut Vec<String>, mut i: u32, mut j:
                         
                         a = a + 1;
                         b = b + 1;
-                        println!("a => {} | b => {}",a,b);
                         indexString1 = ((1 - o) * n + m2 * a + (o - 1)) as i32;
                         indexString2 = ((1 - o) * m + m2 * b + (o - 1)) as i32;
                     }    
@@ -329,21 +304,9 @@ fn diff(string1: &mut Vec<String>, string2: &mut Vec<String>, mut i: u32, mut j:
                             
                            
                         }
-                        println!("z1 => {}",z1);
-                        println!("c => {:?} | d => {:?}",c,d);
-                        println!("g => {:?} | p => {:?}",g,p);
-                        
-                        
-                        
-                        println!("Check1>    l => {} | o => {} | l.modulo(2) == o => {} ",l,o,l.modulo(2) == o);
-                        println!("Check2>    z1 => {} | o => {} | h => {}  | z1 >= -(h - o) => {} ",z1,o,h, z1 >= -(h - o));
-                        println!("Check3>    z1 => {} | o => {}   | h => {} | z1 <= (h - o) => {} ",z1,o,h, z1 <= (h - o));
-                        println!("Check4>    z1 => {} | z => {} | k => {} | n => {} | c[(k.modulo(z as i32)) as usize] =>  {}   | d[(z1.modulo(z)) as usize] => {}   | c[(k.modulo(z as i32)) as usize] + d[(z1.modulo(z)) as usize] >= n ===> {}"
-                         ,z1,z,k,n,c[(k.modulo(z as i32)) as usize], d[(z1.modulo(z)) as usize],c[(k.modulo(z as i32)) as usize] + d[(z1.modulo(z)) as usize] >= n);
                          if l.modulo(2) == o && z1 >= -(h - o) && z1 <= (h - o)
                             && c[(k.modulo(z as i32)) as usize] + d[(z1.modulo(z)) as usize] >= n
                         {
-                            println!("Executes the if statement");
                             
                                 let mut D = 2 * h;
                                 let mut x = n - a;
@@ -358,23 +321,12 @@ fn diff(string1: &mut Vec<String>, string2: &mut Vec<String>, mut i: u32, mut j:
                                 u = a;
                                 v = b;
                             }
-                            println!("D => {}",D);
-                            println!("x => {}",x);
-                            println!("y => {}",y);
-                            println!("u => {}",u);
-                            println!("v => {}",v);
                               if D > 1 || (x != u && y != v) {
                                 
                                 let r1_1: usize = x as usize;
                                 let r2_1: usize = y as usize;
                                 let r3_1: u32 = i as u32;
                                 let r4_1: u32 = j as u32;
-                               
-                               
-                               
-                               
-                               
-                               
                                
                                
                                
@@ -387,35 +339,19 @@ fn diff(string1: &mut Vec<String>, string2: &mut Vec<String>, mut i: u32, mut j:
                                 let r7_1: u32 = i as u32;
                                 let r8_1: u32 = j as u32;
                                
-                                println!("Out 1");
-                               println!("first function start");
-                               println!("p1 => {:?} | from => {} | to => {}",
-                                        string1[0..r1_1].to_vec(),0,r1_1);
-                               println!("p2 => {:?} | from => {} | to => {}", 
-                                        string2[0..r2_1].to_vec(),0,r2_1);
-                               println!("p3 => {}", r3_1);
-                               println!("p4 => {}", r4_1);
                                 let mut recursion1:Vec<ReturnValue> = diff(
                                     &mut string1[0..r1_1].to_vec(),
                                     &mut string2[0..r2_1].to_vec(),
                                     r3_1,
                                     r4_1,
                                 );
-                                println!("first function end");
-                                println!("second function start");
-                                println!("p1 => {:?} | from => {} | to => {}",
-                                        string1[r5_1..r5_2].to_vec(),r5_1,r5_2);
-                                println!("p2 => {:?} | from => {} | to => {}",
-                                        string2[r6_1..r6_2].to_vec(),r6_1,r6_2);
-                                println!("p3 => {}", r7_1+ (u as u32));
-                                println!("p4 => {}", r8_1 + (v as u32));
+                     
                                 let mut recursion2:Vec<ReturnValue> = diff(
                                     &mut string1[r5_1..r5_2].to_vec(),
                                     &mut string2[r6_1..r6_2].to_vec(),
                                     r7_1+ (u as u32),
                                     r8_1 + (v as u32),
                                 );
-                                println!("second function end");
                                 return  vectorAdd_Up(recursion1,recursion2);
                                 
                                
@@ -426,15 +362,6 @@ fn diff(string1: &mut Vec<String>, string2: &mut Vec<String>, mut i: u32, mut j:
                                 let r2_1: u32 = (i + (n as u32)) as u32;
                                 let r2_2: u32 = (j + (n as u32)) as u32;
                                 
-                                println!("Out 2 ");
-                                println!("first function start");
-                                println!("p1 => {:?} | from => {} | to => {}",
-                                        string1[0..0].to_vec(),0,0);
-                                println!("p2 => {:?} | from => {} | to => {}",
-                                        string2[r1_1..r1_2].to_vec(),r1_1,r1_2);
-                                println!("p3 => {}", r2_1);
-                                println!("p4 => {}", r2_2);
-                                println!("first function end");
                                
                                 return vectorAdd_Up(
                                     diff(&mut string1[0..0].to_vec(),
@@ -453,16 +380,6 @@ fn diff(string1: &mut Vec<String>, string2: &mut Vec<String>, mut i: u32, mut j:
                                 let r1_2: usize = n as usize;
                                 let r3_1: u32 = (i + (m as u32)) as u32;
                                 let r4_1: u32 = (j + (m as u32)) as u32;
-                                println!("Out 3");
-                                println!("first function start");
-                                println!("p1 => {:?} | from => {} | to => {} "
-                                        ,string1[r1_1..r1_2].to_vec(),r1_1,r1_2);
-                                        
-                                println!("p2 => {:?} | from => {} | to => {} ",
-                                        string2[0..0].to_vec(),0,0);
-                                println!("p3 => {}", r3_1);
-                                println!("p4 => {}", r4_1);
-                                println!("first function end");
                                 
                                 return vectorAdd_Up(diff(
                                     &mut string1[r1_1..r1_2].to_vec(),
@@ -475,7 +392,6 @@ fn diff(string1: &mut Vec<String>, string2: &mut Vec<String>, mut i: u32, mut j:
                             else {
                                 
                                 
-                                println!("Nothing");
                                 let output:Vec<ReturnValue> = vec![];
                                 return vectorAdd_Up(vec![],vec![]);
                             }
@@ -534,52 +450,42 @@ fn diff(string1: &mut Vec<String>, string2: &mut Vec<String>, mut i: u32, mut j:
     }
 }
 
-fn print_edit_sequence(vector:Vec<ReturnValue>,input1:Vec<String>,input2:Vec<String>){
-    println!("------------------------------------ RESULTS STR ------------------------------------");
-
-    appyScriptApplication(vector,input1.to_vec(),input2.to_vec());
-    println!("{:?}", input1.to_vec());
-    println!("{:?}", input2.to_vec());
-    println!("------------------------------------ RESULTS END ------------------------------------");
-}            
-
 fn appyScriptApplication(edit_script:Vec<ReturnValue>,s1:Vec<String>,s2:Vec<String>){
-	let mut i =0; 
-	let mut new_sequence = vec![];
+    let mut i =0; 
+    let mut new_sequence = vec![];
 
-	for e in edit_script{
-		while e.position_old.to_string().parse::<usize>().unwrap() > i {
-			new_sequence.push(s1[i].to_string());
-			println!("{}", s1[i].to_string());
-			i +=1;
-			
-		}
+    for e in edit_script{
+        while e.position_old.to_string().parse::<usize>().unwrap() > i {
+            new_sequence.push(s1[i].to_string());
+            println!("   {}", s1[i].to_string());
+            i +=1;
+            
+        }
 
-		if e.position_old.to_string().parse::<usize>().unwrap() == i {
-			if e.operation.to_string() == "delete" {
-				println!("-{}", s1[i].to_string());
-				i  = i+1;
-				
-			}
-			else if e.operation.to_string() == "insert" {
-				new_sequence.push(s2[e.position_new.to_string().parse::<usize>().unwrap()].to_string());
-				println!("+{}", s2[e.position_new.to_string().parse::<usize>().unwrap()].to_string());
-			}
-		}
-	}
-	while i < s1.len(){
-		new_sequence.push(s1[i].to_string());
-		println!("{}", s1[i].to_string());
-		i+=1;
-	}
-	println!("The New sequence is => {:?}",new_sequence );
+        if e.position_old.to_string().parse::<usize>().unwrap() == i {
+            if e.operation.to_string() == "delete" {
+                println!("-  {}", s1[i].to_string());
+                i  = i+1;
+                
+            }
+            else if e.operation.to_string() == "insert" {
+                new_sequence.push(s2[e.position_new.to_string().parse::<usize>().unwrap()].to_string());
+                println!("+  {}", s2[e.position_new.to_string().parse::<usize>().unwrap()].to_string());
+            }
+        }
+    }
+    while i < s1.len(){
+        new_sequence.push(s1[i].to_string());
+        println!("{}", s1[i].to_string());
+        i+=1;
+    }
 }
 
 
 fn printValueFromIndex(vector:Vec<String>,from:usize,to:usize){
-	for i in from..to {
-		println!("{:?}",vector[i]);
-	}
+    for i in from..to {
+        println!("{:?}",vector[i]);
+    }
 }
 
 
